@@ -27,9 +27,13 @@
         <title>Les entreprises S Côté inc. 🛠️</title>
     </head>
     <?php
-        if ($_SESSION['background'] == "dark") {
-            echo "<body class='index dark'>";
-        } else if ($_SESSION['background'] == "white") {
+        if (isset($_SESSION['background'])) {
+            if ($_SESSION['background'] == "dark") {
+                echo "<body class='index dark'>";
+            } else if ($_SESSION['background'] == "white") {
+                echo "<body class='index'>";
+            }
+        } else {
             echo "<body class='index'>";
         }
     ?>
@@ -40,7 +44,7 @@
                     <nav class="menu">
                         <button class="changeTheme">Changer de thème 👉</button>
                         <div class="menu_horizontal">
-                        <a href="/" class="active">Accueil</a>
+                        <a href="index.php" class="active">Accueil</a>
                         <a href="works.php">Travaux</a>
                         <a href="prix.php">Prix</a>
                         <a href="contact.php">Nous contacter</a>

@@ -24,7 +24,17 @@
         </style>
         <title>Les entreprises S Côté inc. 🛠️</title>
     </head>
-    <body class="prix">
+    <?php
+        if (isset($_SESSION['background'])) {
+            if ($_SESSION['background'] == "dark") {
+                echo "<body class='prix dark'>";
+            } else if ($_SESSION['background'] == "white") {
+                echo "<body class='prix'>";
+            }
+        } else {
+            echo "<body class='prix'>";
+        }
+    ?>
         <div class="container">
             <?php include_once('header.php'); ?>
             <main>
@@ -34,8 +44,9 @@
                         <div class="menu_horizontal">
                             <a href="index.php">Accueil</a>
                             <a href="works.php">Travaux</a>
-                            <a href="/" class="active">Prix</a>
+                            <a href="prix.php" class="active">Prix</a>
                             <a href="contact.php">Nous contacter</a>
+                            <a href="inscription.php">S'incrire</a>
                         </div>
                     </nav>
                 </div>
@@ -58,6 +69,21 @@
                 <div id="date"><?php echo date('F j Y à h:i'); ?></div>
             </footer>
         </div>
-    <script src="src/script.js"></script>
+    <script>
+        function changeTheme() {
+            let body = document.querySelector("body");
+
+            if (body.classList.contains("dark")) {
+                body.classList.remove("dark");
+                <?php $_SESSION['background'] = "white"; ?>
+            } else {
+                body.classList.add("dark");
+                <?php $_SESSION['background'] = "dark"; ?>
+            }
+        }
+
+        let changeThemeButton = document.querySelector("button.changeTheme");
+        changeThemeButton.addEventListener("click", changeTheme);
+    </script>
     </body>
 </php>

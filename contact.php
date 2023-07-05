@@ -34,7 +34,17 @@
         <script src="https://code.jquery.com/jquery-3.5.0.min.js">
         </script>
     </head>
-    <body class="contact">
+    <?php
+        if (isset($_SESSION['background'])) {
+            if ($_SESSION['background'] == "dark") {
+                echo "<body class='contact dark'>";
+            } else if ($_SESSION['background'] == "white") {
+                echo "<body class='contact'>";
+            }
+        } else {
+            echo "<body class='contact'>";
+        }
+    ?>
         <div class="container">
             <?php include_once('header.php'); ?>
         <main>
@@ -45,7 +55,8 @@
                     <a href="index.php">Accueil</a>
                     <a href="works.php">Travaux</a>
                     <a href="prix.php">Prix</a>
-                    <a href="/" class="active">Nous contacter</a>
+                    <a href="contact.php" class="active">Nous contacter</a>
+                    <a href="inscription.php">S'incrire</a>
                     </div>
                 </nav>
             </div>
@@ -111,7 +122,21 @@
             <div id="date"><?php echo date('F j Y à h:i'); ?></div>
         </footer>
         </div>
-    <script src="src/script.js">
+    <script>
+        function changeTheme() {
+            let body = document.querySelector("body");
+
+            if (body.classList.contains("dark")) {
+                body.classList.remove("dark");
+                <?php $_SESSION['background'] = "white"; ?>
+            } else {
+                body.classList.add("dark");
+                <?php $_SESSION['background'] = "dark"; ?>
+            }
+        }
+
+        let changeThemeButton = document.querySelector("button.changeTheme");
+        changeThemeButton.addEventListener("click", changeTheme);
     </script>
   </body>
 </php>

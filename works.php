@@ -36,7 +36,17 @@
         </style>
         <title>Les entreprises S Côté inc. 🛠️</title>
     </head>
-    <body class="works">
+    <?php
+        if (isset($_SESSION['background'])) {
+            if ($_SESSION['background'] == "dark") {
+                echo "<body class='works dark'>";
+            } else if ($_SESSION['background'] == "white") {
+                echo "<body class='works'>";
+            }
+        } else {
+            echo "<body class='works'>";
+        }
+    ?>
         <div class="container">
             <?php include_once('header.php'); ?>
             <main>
@@ -45,9 +55,10 @@
                         <button class="changeTheme">Changer de thème 👉</button>
                         <div class="menu_horizontal"> 
                             <a href="index.php">Accueil</a>
-                            <a href="/" class="active">Travaux</a>
+                            <a href="works.php" class="active">Travaux</a>
                             <a href="prix.php">Prix</a>
                             <a href="contact.php">Nous contacter</a>
+                            <a href="inscription.php">S'incrire</a>
                         </div>
                     </nav>
                 </div>
@@ -123,7 +134,21 @@
                 <div id="date"><?php echo date('F j Y à h:i'); ?></div>
             </footer>
         </div>
-        <script src="src/script.js">
+        <script>
+            function changeTheme() {
+                let body = document.querySelector("body");
+
+                if (body.classList.contains("dark")) {
+                    body.classList.remove("dark");
+                    <?php $_SESSION['background'] = "white"; ?>
+                } else {
+                    body.classList.add("dark");
+                    <?php $_SESSION['background'] = "dark"; ?>
+                }
+            }
+
+            let changeThemeButton = document.querySelector("button.changeTheme");
+            changeThemeButton.addEventListener("click", changeTheme);
         </script>
     </body>
 </php>
